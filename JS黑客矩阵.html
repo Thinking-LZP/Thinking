@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		 
+		<title>Matrix-JS黑客矩阵</title>
+		 
+		<style type="text/css">
+		
+		* { margin: 0; padding: 0; }
+		
+		body { background: black; overflow: hidden; }
+
+		canvas {display: block;z-index : -1;position : absolute;}
+		</style> 
+	</head>
+
+	<body>
+		<canvas id="LZP"></canvas>
+		 
+		<script type="text/javascript">
+
+		    var LZP = document.getElementById("LZP");//初始化画布
+		    var ctx = LZP.getContext("2d");//2维
+		 
+		    LZP.height = window.innerHeight;
+		    LZP.width = window.innerWidth;
+
+		    var chinese = "0 1";//画布显示字符
+		    chinese = chinese.split("");
+		 
+		    var font_size = 16;//字符大小
+		    var columns = LZP.width / font_size;
+		    var drops = [];
+		    for (var x = 0; x < columns; x++)
+		        drops[x] = 1;
+
+		    function draw() //绘制 Matrix (矩阵) 函数
+		    {
+		        ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; //fill(填充) 数字颜色透明渐变的效果
+		        ctx.fillRect(0, 0, LZP.width, LZP.height); //填充字符位置
+		        ctx.fillStyle = "#0F0"; //填充字符的颜色
+		        ctx.font = font_size + "px";//字符大小的单位
+
+		        for (var i = 0; i < drops.length; i++)
+		        {  
+		            var text = chinese[Math.floor(Math.random() * chinese.length)];//字符随机
+		            
+		            ctx.fillText(text, i * font_size, drops[i] * font_size);
+		 
+		            if (drops[i] * font_size > (LZP.height*2/3) && Math.random() > 0.85)
+		                drops[i] = 0;
+		            drops[i]++;
+		        }
+		    }
+		 
+		    setInterval(draw, 50);//按照指定间隔一直执行方法
+		</script>
+	 
+	
+	</body></html>
